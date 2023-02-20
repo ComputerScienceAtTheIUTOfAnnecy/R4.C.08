@@ -40,10 +40,6 @@ class Server:
 
 
 if __name__ == '__main__':
-    #TODO:
-    # 1. chiffrer le fichier vidéo avec AES
-    # 2. calculer son empreinte avec SHA-3
-    # 3. 
     server = Server(5000)
     server.waitForConnection()
     f = "input/videotest.mp4"
