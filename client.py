@@ -32,11 +32,12 @@ class Client:
         return self.bfile
 
     def receiveMessage(self):
-        return self.client_socket.recv(1024).decode()
+        msg = self.client_socket.recv(1024).decode().split("@!")
+        return msg
 
     def sendMessage(self, msg: str):
         print("Sending:", msg)
-        self.client_socket.send(str.encode(msg))
+        self.client_socket.send(str.encode(msg + "@!"))
 
     def saveFile(self, bytes: b"", filename: str):
         with open(filename, 'wb') as f:
@@ -46,14 +47,14 @@ class Client:
         if not self.client_socket == None:
             self.client_socket.close()  # close the connection
         else:
-            raise Exception("Erreur: la connection a été fermée avant d'être instanciée.")
+            raise Exception("Erreur: la connexion a été fermée avant d'être instanciée.")
 
 if __name__ == '__main__':
     
     client = Client(5000)
     client.connect()
     bfile = client.receiveFile()
-    f = "output/received.mp4"
+    f = "output/filename"
     client.saveFile(bytes=bfile, filename=f)
     msg = client.receiveMessage()
     print(msg)

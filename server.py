@@ -17,10 +17,11 @@ class Server:
 
     def sendMessage(self, msg: str):
         print("Sending:", msg)
-        self.conn.send(str.encode(msg))
+        self.conn.send(str.encode(msg + "@!"))
 
     def receiveMessage(self):
-        return self.conn.recv(1024).decode()
+        msg = self.client_socket.recv(1024).decode().split("@!")
+        return msg
 
     def sendFile(self, filename: str):
         print("Sending:", filename)
@@ -35,7 +36,7 @@ class Server:
         if not self.conn == None:
             self.conn.close()  # close the connection
         else:
-            raise Exception("Erreur: la connection a été fermée avant d'être instanciée.")
+            raise Exception("Erreur: la connexion a été fermée avant d'être instanciée.")
 
 
 
@@ -44,5 +45,9 @@ if __name__ == '__main__':
     server.waitForConnection()
     f = "input/videotest.mp4"
     server.sendFile(filename=f)
-    server.sendMessage("Ce message a bien été transmis du serveur au client")
+    server.sendMessage("Ce message a bien été transmis du serveur au client1")
+    server.sendMessage("Ce message a bien été transmis du serveur au client2")
+    server.sendMessage("Ce message a bien été transmis du serveur au client3")
+    server.sendMessage("Ce message a bien été transmis du serveur au client4")
+    server.sendMessage("Ce message a bien été transmis du serveur au client5")
     server.close()
