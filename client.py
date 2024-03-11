@@ -54,7 +54,7 @@ if __name__ == '__main__':
     client = Client(5000)
     client.connect()
     bfile = client.receiveFile()
-    f = "output/filename"
+    f = "output/filename.txt"
     client.saveFile(bytes=bfile, filename=f)
     msg = client.receiveMessage()
     print(msg)

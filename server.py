@@ -20,7 +20,7 @@ class Server:
         self.conn.send(str.encode(msg + "@!"))
 
     def receiveMessage(self):
-        msg = self.client_socket.recv(1024).decode().split("@!")
+        msg = self.conn.recv(1024).decode().split("@!")
         return msg
 
     def sendFile(self, filename: str):
@@ -43,7 +43,7 @@ class Server:
 if __name__ == '__main__':
     server = Server(5000)
     server.waitForConnection()
-    f = "input/videotest.mp4"
+    f = "input/test.txt"
     server.sendFile(filename=f)
     server.sendMessage("Ce message a bien été transmis du serveur au client1")
     server.sendMessage("Ce message a bien été transmis du serveur au client2")
